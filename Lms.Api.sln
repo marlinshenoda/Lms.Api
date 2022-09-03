@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.1.32228.430
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lms.Api", "Lms.Api\Lms.Api.csproj", "{A3FD6BD7-15F1-4D77-AE1D-FF419A0B76D4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lms.Core", "Lms.Core\Lms.Core.csproj", "{DCFF1630-C993-42DA-94E9-7F04C6843CBD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lms.Data", "Lms.Data\Lms.Data.csproj", "{79020049-2ACE-44DD-98F5-643790C26C76}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A3FD6BD7-15F1-4D77-AE1D-FF419A0B76D4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A3FD6BD7-15F1-4D77-AE1D-FF419A0B76D4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A3FD6BD7-15F1-4D77-AE1D-FF419A0B76D4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A3FD6BD7-15F1-4D77-AE1D-FF419A0B76D4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DCFF1630-C993-42DA-94E9-7F04C6843CBD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DCFF1630-C993-42DA-94E9-7F04C6843CBD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DCFF1630-C993-42DA-94E9-7F04C6843CBD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DCFF1630-C993-42DA-94E9-7F04C6843CBD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{79020049-2ACE-44DD-98F5-643790C26C76}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{79020049-2ACE-44DD-98F5-643790C26C76}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{79020049-2ACE-44DD-98F5-643790C26C76}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{79020049-2ACE-44DD-98F5-643790C26C76}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {2C5CF99C-CCC1-4246-B728-1289038AE7A2}
+	EndGlobalSection
+EndGlobal
