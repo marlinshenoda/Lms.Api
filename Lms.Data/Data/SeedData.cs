@@ -66,25 +66,6 @@ namespace Lms.Data.Data
 
             return courses;
         }
-        //private static IEnumerable<Module> GenerateModules(int numberOfModules,IEnumerable<Course>courses)
-        //{
-        //    var modules = new List<Module>();
 
-        //    for (int i = 0; i < numberOfModules; i++)
-        //    {
-        //        foreach (Course course in courses)
-        //        {
-        //            modules.Add(new Module
-        //            {
-        //                Title = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(faker.Company.Bs()),
-        //                StartDate = DateTime.Now.AddDays(faker.Random.Int(-5, 5)),
-        //                CourseId = course.Id,
-        //            });
-        //        }
-        //        db.AddRange(courses);
-        //    }
-
-        //    return modules;
-        //}
     }
 }
