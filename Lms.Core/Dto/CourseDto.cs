@@ -8,8 +8,8 @@ using System.Threading.Tasks;
 namespace Lms.Core.Dto
 {
     public class CourseDto
-    {
-        [Required]
+    {     
+       public int Id { get; set; }
         public string Title { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime EndDate => StartDate.AddMonths(1);

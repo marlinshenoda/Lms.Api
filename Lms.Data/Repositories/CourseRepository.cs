@@ -38,9 +38,9 @@ namespace Lms.Data.Repositories
             return await db.Course.ToListAsync();
         }
 
-        public async Task<Course> GetCourse(int? id)
+        public async Task<Course?> GetCourse(int id)
         {
-            return await db.Course.FirstOrDefaultAsync(m => m.Id == id);
+            return await db.Course.FindAsync(id);
         }
 
         public void Remove(Course course)

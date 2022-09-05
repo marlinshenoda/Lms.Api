@@ -32,7 +32,7 @@ namespace Lms.Api.Controllers
   
         // GET: api/Courses
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<CourseDto>>> GetCourses()
+        public async Task<ActionResult<IEnumerable<CourseDto>>> GetCourse()
         {
           
                 var courses = await uow.CourseRepository.GetAllCourses();
@@ -41,20 +41,13 @@ namespace Lms.Api.Controllers
 
         // GET: api/Courses/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Course>> GetCourse(int id)
+        public async Task<ActionResult<CourseDto>> GetCourse(int id)
         {
-          if (db.Course == null)
-          {
-              return NotFound();
-          }
-            var course = await db.Course.FindAsync(id);
+            var course = await uow.CourseRepository.GetCourse(id);
 
-            if (course == null)
-            {
-                return NotFound();
-            }
+           // if (course is null) return BadRequest();
 
-            return course;
+            return Ok(mapper.Map<CourseDto>(course));
         }
 
         // PUT: api/Courses/5

@@ -7,6 +7,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Lms.Data.Data;
 using Lms.Core.Entities;
+using Lms.Data.Repositories;
+using AutoMapper;
+using Lms.Core.Dto;
 
 namespace Lms.Api.Controllers
 {
@@ -15,21 +18,21 @@ namespace Lms.Api.Controllers
     public class ModulesController : ControllerBase
     {
         private readonly LmsApiContext _context;
-
-        public ModulesController(LmsApiContext context)
+        private readonly IMapper mapper;
+        private readonly UnitOfWork uow;
+        public ModulesController(LmsApiContext context, IMapper mapper)
         {
             _context = context;
+            this.mapper = mapper;
+            uow = new UnitOfWork(context);
         }
 
         // GET: api/Modules
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Module>>> GetModule()
+        public async Task<ActionResult<IEnumerable<ModuleDto>>> GetModule()
         {
-          if (_context.Module == null)
-          {
-              return NotFound();
-          }
-            return await _context.Module.ToListAsync();
+            var modules = await uow.ModuleRepository.GetAllModules();
+            return Ok(mapper.Map<IEnumerable<ModuleDto>>(modules));
         }
 
         // GET: api/Modules/5
