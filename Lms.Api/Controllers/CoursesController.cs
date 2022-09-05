@@ -8,6 +8,9 @@ using Microsoft.EntityFrameworkCore;
 using Lms.Data.Data;
 using Lms.Core.Entities;
 using Lms.Data.Repositories;
+using Lms.Core.Dto;
+using Bogus.DataSets;
+using AutoMapper;
 
 namespace Lms.Api.Controllers
 {
@@ -17,20 +20,23 @@ namespace Lms.Api.Controllers
     {
         private readonly LmsApiContext db;
         private readonly UnitOfWork uow;
+        private readonly IMapper mapper;
 
-        public CoursesController(LmsApiContext context)
+        public CoursesController(LmsApiContext context, IMapper mapper)
         {
             db = context;
             uow = new UnitOfWork(db);
+            this.mapper = mapper;
 
         }
-
+  
         // GET: api/Courses
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Course>>> GetCourse()
+        public async Task<ActionResult<IEnumerable<CourseDto>>> GetCourses()
         {
-            var events = await uow.CourseRepository.GetAllCourses();
-            return Ok(events);
+          
+                var courses = await uow.CourseRepository.GetAllCourses();
+            return Ok(mapper.Map<IEnumerable<CourseDto>>(courses));
         }
 
         // GET: api/Courses/5
