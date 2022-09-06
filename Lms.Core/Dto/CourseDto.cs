@@ -9,10 +9,11 @@ namespace Lms.Core.Dto
 {
     public class CourseDto
     {     
-       public int Id { get; set; }
+      [Required]
         public string Title { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime EndDate => StartDate.AddMonths(1);
+        public  ICollection<ModuleDto>Modules { get; set; }
 
     }
 }

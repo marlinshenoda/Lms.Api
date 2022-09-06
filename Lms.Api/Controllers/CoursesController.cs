@@ -11,6 +11,7 @@ using Lms.Data.Repositories;
 using Lms.Core.Dto;
 using Bogus.DataSets;
 using AutoMapper;
+using Microsoft.AspNetCore.JsonPatch;
 
 namespace Lms.Api.Controllers
 {
@@ -29,27 +30,39 @@ namespace Lms.Api.Controllers
             this.mapper = mapper;
 
         }
-  
+
         // GET: api/Courses
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<CourseDto>>> GetCourse()
+        public async Task<ActionResult<IEnumerable<CourseDto>>> GetCourse(bool includeModules)
         {
-          
-                var courses = await uow.CourseRepository.GetAllCourses();
+
+            var courses = await uow.CourseRepository.GetAllCourses(includeModules);
             return Ok(mapper.Map<IEnumerable<CourseDto>>(courses));
         }
 
         // GET: api/Courses/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<CourseDto>> GetCourse(int id)
+        //[HttpGet("{id}")]
+        //public async Task<ActionResult<CourseDto>> GetCourse(int id, string title)
+        //{
+        //    var course = await uow.CourseRepository.GetCourse(id);
+
+        //    if (course is null) return BadRequest();
+
+        //    return Ok(mapper.Map<CourseDto>(course));
+        //}
+        [HttpGet]
+        [Route("{title}")]
+        public async Task<ActionResult<IEnumerable<CourseDto>>> Get(string title, bool includeModules)
         {
-            var course = await uow.CourseRepository.GetCourse(id);
 
-           // if (course is null) return BadRequest();
+            var coursee = await uow.CourseRepository.GetCourse(title, includeModules);
 
-            return Ok(mapper.Map<CourseDto>(course));
+            if (coursee is null) return NotFound();
+
+            var dto = mapper.Map<CourseDto>(coursee);
+
+            return Ok(dto);
         }
-
         // PUT: api/Courses/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
@@ -86,10 +99,10 @@ namespace Lms.Api.Controllers
         [HttpPost]
         public async Task<ActionResult<Course>> PostCourse(Course course)
         {
-          if (db.Course == null)
-          {
-              return Problem("Entity set 'LmsApiContext.Course'  is null.");
-          }
+            if (db.Course == null)
+            {
+                return Problem("Entity set 'LmsApiContext.Course'  is null.");
+            }
             db.Course.Add(course);
             await db.SaveChangesAsync();
 
@@ -120,5 +133,25 @@ namespace Lms.Api.Controllers
         {
             return (db.Course?.Any(e => e.Id == id)).GetValueOrDefault();
         }
+       
+        [HttpPatch("{title}")]
+        public async Task<ActionResult<CourseDto>> PatchCourse(string title, JsonPatchDocument<CourseDto> patchDocument)
+        {
+            var coursePatch = await uow.CourseRepository.GetCourse(title, true);
+
+            if (coursePatch is null) return NotFound();
+
+            var dto = mapper.Map<CourseDto>(coursePatch);
+
+            patchDocument.ApplyTo(dto, ModelState);
+
+            if (!ModelState.IsValid) return BadRequest(ModelState);
+
+            mapper.Map(dto, coursePatch);
+
+            await uow.CompleteAsync();
+
+            return Ok(mapper.Map<CourseDto>(coursePatch));
+        }
     }
-}
+    }
